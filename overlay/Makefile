@@ -37,11 +37,14 @@ include $(DEVKITPRO)/libnx/switch_rules
 #   of a homebrew executable (.nro). This is intended to be used for sysmodules.
 #   NACP building is skipped as well.
 #---------------------------------------------------------------------------------
-APP_TITLE	:= 	emuiibo
+APP_TITLE	?= 	emuiibo
 VER_MAJOR	:=	1
 VER_MINOR	:=	1
 VER_MICRO	:=	1
-APP_VERSION :=	$(VER_MAJOR).$(VER_MINOR).$(VER_MICRO)
+APP_VERSION :=	v$(VER_MAJOR).$(VER_MINOR).$(VER_MICRO)
+ifeq ($(RELEASE),)
+	APP_VERSION	:=	$(APP_VERSION)-$(shell git describe --always)
+endif
 TARGET		:=	$(APP_TITLE)
 BUILD		:=	build
 SOURCES		:=	source source/emu source/tr source/ui
@@ -57,7 +60,7 @@ ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
 CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
 			$(ARCH) $(DEFINES)
 
-CFLAGS	+=	$(INCLUDE) -D__SWITCH__ -DVER_MAJOR=$(VER_MAJOR) -DVER_MINOR=$(VER_MINOR) -DVER_MICRO=$(VER_MICRO)
+CFLAGS	+=	$(INCLUDE) -D__SWITCH__ -DAPPTITLE=\"$(APP_TITLE)\" -DVER_MAJOR=$(VER_MAJOR) -DVER_MINOR=$(VER_MINOR) -DVER_MICRO=$(VER_MICRO)
 
 CXXFLAGS	:= $(CFLAGS) -fexceptions -std=gnu++20
 

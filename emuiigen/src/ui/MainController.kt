@@ -42,9 +42,7 @@ import com.xortroll.emuiibo.emuiigen.AmiiboAreaInfo
 
 class MainController {
     companion object {
-
         val TemporaryFtpDirectory = "tmp_ftp";
-
     }
 
     @FXML lateinit var AmiiboOpenButton: Button;
@@ -103,7 +101,7 @@ class MainController {
                 this.AmiiboBox.items.setAll(amiibo_names);
             }
             ?: let {
-                System.out.println("Internal unexpected error");
+                System.out.println("内部意外错误");
             }
         }
     }
@@ -142,7 +140,7 @@ class MainController {
                 }
             }
             ?: let {
-                this@MainController.showError("Internal unexpected error...");
+                this@MainController.showError("内部意外错误...");
             }
         }
         else {
@@ -181,7 +179,7 @@ class MainController {
                 return port_str.toInt();
             }
             catch(ex: Exception) {
-                this.showError("Invalid FTP port: " + ex.toString());
+                this.showError("无效的FTP端口：" + ex.toString());
                 return null;
             }
         }
@@ -237,7 +235,7 @@ class MainController {
                     Utils.netDownloadFile(amiibo.image_url, image_path);
                 }
                 catch(ex: Exception) {
-                    System.out.println("Exception saving amiibo image: " + ex.toString());
+                    System.out.println("保存Amiibo图像异常：" + ex.toString());
                     return false;
                 }
             }
@@ -253,14 +251,14 @@ class MainController {
 
                     val reply = client.replyCode;
                     if(!FTPReply.isPositiveCompletion(reply)) {
-                        this@MainController.showError("The FTP server refused connection...");
+                        this@MainController.showError("FTP服务器拒绝连接...");
                         client.disconnect();
                         return false;
                     }
 
                     client.makeDirectory(ftp_base_dir);
                     if(!Utils.ensureFtpDirectory(client, ftp_base_dir)) {
-                        this@MainController.showError("Unable to ensure FTP directory '" + ftp_base_dir + "': " + client.replyCode.toString());
+                        this@MainController.showError("无法确保FTP目录 '" + ftp_base_dir + "'：" + client.replyCode.toString());
                         client.disconnect();
                         return false;
                     }
@@ -272,7 +270,7 @@ class MainController {
                         client.storeFile(ftp_path, strm);
                         strm.close();
                         if(!FTPReply.isPositiveCompletion(client.replyCode)) {
-                            this@MainController.showError("Unable to store FTP file '" + ftp_path + "': " + client.replyCode.toString());
+                            this@MainController.showError("无法存储FTP文件 '" + ftp_path + "'：" + client.replyCode.toString());
                             client.disconnect();
                             return false;
                         }
@@ -282,7 +280,7 @@ class MainController {
                     return true;
                 }
                 catch(ex: Exception) {
-                    this@MainController.showError("Exception on FTP connection: " + ex.toString());
+                    this@MainController.showError("FTP连接异常：" + ex.toString());
                     client.disconnect();
                     return false;
                 }
@@ -303,7 +301,7 @@ class MainController {
             override fun call() {
                 val api_amiibos = AmiiboAPI.readApi();
                 api_amiibos?.let {
-                    this.updateMessage("AmiiboAPI was successfully accessed!");
+                    this.updateMessage("Amiibo API已成功访问！");
                     
                     Platform.runLater {
                         this@MainController.Amiibos = api_amiibos;
@@ -317,7 +315,7 @@ class MainController {
                     }
                 }
                 ?: let {
-                    this.updateMessage("AmiiboAPI could not be accessed...");
+                    this.updateMessage("无法访问Amiibo API...");
                 }
             }
         };
@@ -332,14 +330,14 @@ class MainController {
 
                     val (status, amiibo) = Amiibo.tryParse(path);
                     if(amiibo == null) {
-                        this@MainController.showError("Unable to load amiibo:\n" + status.toString());
+                        this@MainController.showError("无法加载Amiibo：\n" + status.toString());
                     }
                     else {
                         if(status.contains(AmiiboStatusKind.MiiCharInfoNotFound)) {
-                            this@MainController.showWarn("This amiibo has no mii charinfo file.\nIt is still a valid amiibo, emuiibo will generate it on boot.");
+                            this@MainController.showWarn("此Amiibo没有Mii角色信息文件。\n它仍然是一个有效的Amiibo，emuiibo将在启动时生成它。");
                         }
                         if(status.contains(AmiiboStatusKind.InvalidNameLength)) {
-                            this@MainController.showWarn("This amiibo had a name that exceeds 10 characters.\nToo long names could cause issues with certain games.");
+                            this@MainController.showWarn("此Amiibo的名称超过10个字符。\n名称过长可能会导致某些游戏出现问题。");
                         }
 
                         this@MainController.OpenedAmiibo = amiibo;
@@ -355,9 +353,9 @@ class MainController {
                             // todo
                             val area_items = mutableListOf<String>();
                             for(area in amiibo.areas!!.areas) {
-                                var msg = "Game " + "0x%016X".format(area.program_id.toLong()) + " (" + "0x%08X".format(area.access_id.toInt()) + ")";
+                                var msg = "游戏 " + "0x%016X".format(area.program_id.toLong()) + "（" + "0x%08X".format(area.access_id.toInt()) + "）";
                                 if(area.access_id == amiibo.areas!!.current_area_access_id) {
-                                    msg = "[Active area] " + msg;
+                                    msg = "[活动区域] " + msg;
                                 }
                                 area_items.add(msg);
                             }
@@ -373,14 +371,14 @@ class MainController {
                 // Validate amiibo name
                 val amiibo_name = this@MainController.OpenedAmiiboNameText.getText() as String;
                 if(amiibo_name.isNullOrEmpty()) {
-                    this@MainController.showError("The amiibo name is null or empty...");
+                    this@MainController.showError("Amiibo名称为空或不存在...");
                     return;
                 }
 
                 this@MainController.OpenedAmiibo!!.name = amiibo_name;
                 this@MainController.OpenedAmiibo!!.use_random_uuid = this@MainController.OpenedAmiiboUseRandomUuidCheck.isSelected();
                 if(this@MainController.OpenedAmiibo!!.save(this@MainController.OpenedAmiiboPath)) {
-                    this@MainController.showInfo("The virtual amiibo was successfully updated!");
+                    this@MainController.showInfo("虚拟Amiibo已成功更新！");
 
                     this@MainController.OpenedAmiibo = null;
                     this@MainController.OpenedAmiiboNameText.setText("");
@@ -391,7 +389,7 @@ class MainController {
                     this@MainController.OpenedAmiiboAreaList.setDisable(true);
                 }
                 else {
-                    this@MainController.showError("The virtual amiibo could not be updated...");
+                    this@MainController.showError("虚拟Amiibo无法更新...");
                 }
             }
         });
@@ -445,7 +443,7 @@ class MainController {
 
                 val amiibo_name = this@MainController.AmiiboNameText.getText() as String;
                 if(amiibo_name.isNullOrEmpty()) {
-                    this@MainController.showError("The virtual amiibo name is null or empty...");
+                    this@MainController.showError("虚拟Amiibo名称为空或不存在...");
                     return;
                 }
 
@@ -456,11 +454,11 @@ class MainController {
                     this@MainController.AmiiboDirectoryText.getText()
                 };
                 if(amiibo_dir.isNullOrEmpty()) {
-                    this@MainController.showError("The virtual amiibo directory is null or empty...");
+                    this@MainController.showError("虚拟Amiibo目录为空或不存在...");
                     return;
                 }
                 else if(amiibo_dir.contains("/") || amiibo_dir.contains("\\")) {
-                    this@MainController.showError("The virtual amiibo directory contains invalid characters...");
+                    this@MainController.showError("虚拟Amiibo目录包含无效字符...");
                     return;
                 }
 
@@ -481,18 +479,18 @@ class MainController {
 
                     val amiibo_path = Paths.get(path, base_path).toString();
                     val pres_amiibo_path = Paths.get(pres_path, base_path).toString();
-                    if(this@MainController.showYesNo("The virtual amiibo will be generated at:\n" + pres_amiibo_path + "/{amiibo.json, amiibo.flag, ...}\n\nProceed with generation?")) {
+                    if(this@MainController.showYesNo("虚拟Amiibo将在以下位置生成：\n" + pres_amiibo_path + "/{amiibo.json, amiibo.flag, ...}\n\n继续生成？")) {
                         val selected_amiibo = this@MainController.getSelectedAmiibo();
                         if(selected_amiibo != null) {
                             if(this@MainController.generateAmiibo(amiibo_path, base_path, selected_amiibo, amiibo_name, use_random_uuid, save_image, is_ftp, ftp_addr, ftp_port)) {
-                                this@MainController.showInfo("The virtual amiibo was successfully generated!");
+                                this@MainController.showInfo("虚拟Amiibo成功生成！");
                             }
                             else {
-                                this@MainController.showError("The virtual amiibo could not be generated...");
+                                this@MainController.showError("无法生成虚拟Amiibo...");
                             }
                         }
                         else {
-                            this@MainController.showError("There is no virtual amiibo selected...");
+                            this@MainController.showError("没有选择虚拟Amiibo...");
                         }
                     }
                 }
@@ -519,7 +517,7 @@ class MainController {
                 val paths = this@MainController.chooseBaseAmiiboPath(is_ftp);
                 if(paths != null) {
                     val (path, pres_path) = paths;
-                    if(this@MainController.showYesNo("The virtual amiibos will be generated at:\n" + pres_path + "/<series>/<amiibo>/{amiibo.json, amiibo.flag, ...}\n\nProceed with generation?")) {
+                    if(this@MainController.showYesNo("虚拟Amiibo将在以下位置生成：\n" + pres_path + "/<series>/<amiibo>/{amiibo.json, amiibo.flag, ...}\n\n继续生成？")) {
                         for(amiibos in this@MainController.Amiibos.values) {
                             for(amiibo in amiibos) {
                                 val amiibo_name = Utils.produceAmiiboName(amiibo.amiibo_name);
@@ -527,17 +525,17 @@ class MainController {
 
                                 val amiibo_path = Paths.get(path, base_path).toString();
                                 val pres_amiibo_path = Paths.get(pres_path, base_path).toString();
-                                
+
                                 if(this@MainController.generateAmiibo(amiibo_path, base_path, amiibo, amiibo_name, use_random_uuid, save_image, is_ftp, ftp_addr, ftp_port)) {
-                                    System.out.println("Generated virtual amiibo ('" + amiibo_name + "'): '" + pres_amiibo_path + "'");
+                                    System.out.println("生成的虚拟Amiibo（'" + amiibo_name + "'）：'" + pres_amiibo_path + "'");
                                 }
                                 else {
-                                    this@MainController.showError("The following virtual amiibo could not be generated:\n'" + pres_amiibo_path + "'");
+                                    this@MainController.showError("无法生成以下虚拟Amiibo：\n'" + pres_amiibo_path  + "'");
                                 }
                             }
                         }
 
-                        this@MainController.showInfo("The virtual amiibos were successfully generated!");
+                        this@MainController.showInfo("虚拟Amiibo已成功生成！");
                     }
                 }
             }
@@ -563,7 +561,7 @@ class MainController {
                 val paths = this@MainController.chooseBaseAmiiboPath(is_ftp);
                 if(paths != null) {
                     val (path, pres_path) = paths;
-                    if(this@MainController.showYesNo("The virtual amiibos will be generated at:\n" + pres_path + "/<amiibo>/{amiibo.json, amiibo.flag, ...}\n\nProceed with generation?")) {
+                    if(this@MainController.showYesNo("虚拟Amiibo将在以下位置生成：\n" + pres_path + "/<amiibo>/{amiibo.json, amiibo.flag, ...}\n\n继续生成？")) {
                         val series_name = this@MainController.GenerateSeriesAmiiboSeriesBox.selectionModel.selectedItem;
                         for(amiibo in this@MainController.Amiibos.get(series_name)!!) {
                             val amiibo_name = Utils.produceAmiiboName(amiibo.amiibo_name);
@@ -571,16 +569,16 @@ class MainController {
 
                             val amiibo_path = Paths.get(path, base_path).toString();
                             val pres_amiibo_path = Paths.get(pres_path, base_path).toString();
-                            
+
                             if(this@MainController.generateAmiibo(amiibo_path, base_path, amiibo, amiibo_name, use_random_uuid, save_image, is_ftp, ftp_addr, ftp_port)) {
-                                System.out.println("Generated virtual amiibo ('" + amiibo_name + "'): '" + pres_amiibo_path + "'");
+                                System.out.println("生成的虚拟Amiibo（'" + amiibo_name + "'）：'" + pres_amiibo_path + "'");
                             }
                             else {
-                                this@MainController.showError("The following virtual amiibo could not be generated:\n'" + pres_amiibo_path + "'");
+                                this@MainController.showError("无法生成以下虚拟Amiibo：\n'" + amiibo_path.toString() + "'");
                             }
                         }
 
-                        this@MainController.showInfo("The virtual amiibos were successfully generated!");
+                        this@MainController.showInfo("虚拟Amiibo已成功生成！");
                     }
                 }
             }

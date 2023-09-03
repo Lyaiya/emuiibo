@@ -4,11 +4,12 @@
 #include <ui/ui_TeslaExtras.hpp>
 #include <emu/emu_Service.hpp>
 #include <ui/ui_PngImage.hpp>
-#include <tr/tr_Translation.hpp>
 #include <dirent.h>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+
+using namespace tsl;
 
 namespace {
 
@@ -97,8 +98,7 @@ namespace {
     inline std::string MakeVersionString() {
         if(!g_InitializationOk) {
             return "EmuiiboNotPresent"_tr;
-        }
-        else {
+        } else {
             return std::to_string(g_Version.major) + "." + std::to_string(g_Version.minor) + "." + std::to_string(g_Version.micro) + " (" + (g_Version.dev_build ? "dev" : "release") + ")"; 
         }
     }
@@ -106,8 +106,7 @@ namespace {
     inline emu::VirtualAmiiboStatus GetActiveVirtualAmiiboStatus() {
         if(IsActiveVirtualAmiiboValid()) {
             return emu::GetActiveVirtualAmiiboStatus();
-        }
-        else {
+        } else {
             return emu::VirtualAmiiboStatus::Invalid;
         }
     }
@@ -411,8 +410,7 @@ class AmiiboIcons: public tsl::elm::Element {
             const auto img_buf = image.GetRGBABuffer();
             if(img_buf != nullptr) {
                 renderer->drawBitmap(x + IconMargin / 2 + w / 2 - image.GetWidth() / 2, y + IconMargin, image.GetWidth(), image.GetHeight(), img_buf);
-            }
-            else {
+            } else {
                 renderer->drawString(image.GetErrorText().c_str(), false, x + IconMargin, y + h / 2, ErrorTextFontSize, renderer->a(tsl::style::color::ColorText));
             }
         }
@@ -480,7 +478,7 @@ class AmiiboGui : public tsl::Gui {
 
         virtual tsl::elm::Element *createUI() override {
             // View frame with 2 sections
-            this->root_frame = new ui::elm::DoubleSectionOverlayFrame("emuiibo", MakeVersionString(), ui::SectionsLayout::same, true);
+            this->root_frame = new ui::elm::DoubleSectionOverlayFrame("PluginName"_tr, MakeVersionString(), ui::SectionsLayout::same, true);
 
             // Top and bottom containers
             this->top_list = new tsl::elm::List();
@@ -497,16 +495,14 @@ class AmiiboGui : public tsl::Gui {
                 this->bottom_list->addItem(createFavoritesElement());
                 this->bottom_list->addItem(createResetElement());
                 this->bottom_list->addItem(createHelpElement());
-            }
-            else {
+            } else {
                 // Iterate base folder
                 u32 virtual_amiibo_count = 0;
 
                 std::vector<std::string> dir_paths;
                 if(this->kind == Kind::Favorites) {
                     dir_paths = g_Favorites;
-                }
-                else if(this->kind == Kind::Folder) {
+                } else if(this->kind == Kind::Folder) {
                     tsl::hlp::doWithSDCardHandle([&]() {
                         auto dir = opendir(this->base_path.c_str());
                         if(dir) {
@@ -530,8 +526,7 @@ class AmiiboGui : public tsl::Gui {
                     GuiListElement *new_item = this->createAmiiboElement(dir_path);
                     if(new_item) {
                         virtual_amiibo_count++;
-                    }
-                    else {
+                    } else {
                         new_item = this->createFolderElement(dir_path);
                     }
     
@@ -551,8 +546,7 @@ class AmiiboGui : public tsl::Gui {
                 if(keys & ActionKeyActivateItem) {
                     ToggleEmulationStatus();
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
@@ -572,8 +566,7 @@ class AmiiboGui : public tsl::Gui {
                 if(keys & ActionKeyActivateItem) {
                     ToggleEmulationStatus();
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
@@ -642,8 +635,7 @@ class AmiiboGui : public tsl::Gui {
                     if(keys & ActionKeyAddToFavorite) {
                         gui_item->AddFavorite();
                         return true;
-                    }
-                    else if(keys & ActionKeyRemoveFromFavorite) {
+                    } else if(keys & ActionKeyRemoveFromFavorite) {
                         gui_item->RemoveFavorite();
                         return true;
                     }
@@ -667,8 +659,7 @@ class AmiiboGui : public tsl::Gui {
             const auto has_active_virtual_amiibo = IsActiveVirtualAmiiboValid();
             if(has_active_virtual_amiibo) {
                 this->amiibo_header->setText(std::string(g_ActiveVirtualAmiiboData.name) + " " + GetActionKeyGlyph(ActionKeyToogleConnectVirtualAmiibo));
-            }
-            else {
+            } else {
                 this->amiibo_header->setText("NoActiveVirtualAmiibo"_tr);
             }
 
@@ -677,8 +668,7 @@ class AmiiboGui : public tsl::Gui {
 
             if(auto amiibo_item = dynamic_cast<AmiiboListElement*>(getFocusedElement())) {
                 this->amiibo_icons->SetCurrentAmiiboPath(amiibo_item->GetPath());
-            }
-            else {
+            } else {
                 this->amiibo_icons->SetCurrentAmiiboPath("");
             }
 
@@ -687,14 +677,11 @@ class AmiiboGui : public tsl::Gui {
             if(has_active_virtual_amiibo) {
                 if(g_VirtualAmiiboAreaCount > 0) {
                     this->area_header->setText("SelectedArea"_tr + " (" + std::to_string(g_VirtualAmiiboCurrentAreaIndex + 1) + " / " + std::to_string(g_VirtualAmiiboAreaCount) + "): " + g_VirtualAmiiboAreaTitles[g_VirtualAmiiboCurrentAreaIndex]);
-                }
-                else {
+                } else {
                     this->area_header->setText("NoVirtualAmiiboAreas"_tr);
                 }
-
                 this->random_uuid_toggle_item->setState(g_ActiveVirtualAmiiboData.uuid_info.use_random_uuid);
-            }
-            else {
+            } else {
                 this->area_header->setText("NoActiveVirtualAmiibo"_tr);
                 this->random_uuid_toggle_item->setState(false);
             }
@@ -767,8 +754,7 @@ class AmiiboGui : public tsl::Gui {
                 const auto path = caller.GetPath();
                 if(g_ActiveVirtualAmiiboPath != path) {
                     SetActiveVirtualAmiibo(path);
-                }
-                else {
+                } else {
                     ToggleActiveVirtualAmiiboStatus();
                 }
             });
@@ -779,7 +765,56 @@ class AmiiboGui : public tsl::Gui {
 class EmuiiboOverlay : public tsl::Overlay {
     public:
         virtual void initServices() override {
-            g_InitializationOk = tr::Load() && emu::IsAvailable() && R_SUCCEEDED(emu::Initialize()) && R_SUCCEEDED(pmdmntInitialize()) && R_SUCCEEDED(nsInitialize());
+            std::string jsonStr = R"(
+                {
+                    "PluginName": "amiibo emulation",
+                    "UpngInvalidFile": "Bad file",
+                    "UpngUnsupportedRgbPng": "RGB format PNGs are not supported.",
+                    "UpngUpscaleUnsupported": "Upscaling not allowed.",
+                    "UpngImageTooLarge": "Image is too large.",
+                    "UpngImageNotFound": "Image not found.",
+                    "UpngNotPngImage": "Image is not a PNG.",
+                    "UpngMalformedPng": "PNG malformed.",
+                    "UpngUnsupportedPng": "This PNG not supported.",
+                    "UpngUnsupportedInterlacing": "Image interlacing is not supported.",
+                    "UpngUnsupportedColorFormat": "Image color format is not supported.",
+                    "UpngInvalidParameter": "Invalid parameter.",
+                    "EmuiiboNotPresent": "emuiibo doesn't seem to be present.",
+                    "Help": "Help",
+                    "EnableEmulation": "Enable emulation",
+                    "DisableEmulation": "Disable emulation",
+                    "ToogleConnectVirtualAmiibo": "Connect/Disconnect virtual amiibo",
+                    "SelectFolderVirtualAmiibo": "Select folder/virtual amiibo",
+                    "AddFavorite": "Add to favorites",
+                    "RemoveFavorite": "Remove from favorites",
+                    "ResetActiveVirtualAmiibo": "Reset active virtual amiibo",
+                    "EmulationStatus": "Emulation status",
+                    "On": "on",
+                    "Off": "off",
+                    "CurrentGameIntercepted": "Current game is",
+                    "AvailableVirtualAmiibos": "Available amiibos in",
+                    "Intercepted": "intercepted",
+                    "NotIntercepted": "not intercepted",
+                    "NoActiveVirtualAmiibo": "No active virtual amiibo",
+                    "Connected": "connected",
+                    "Disconnected": "disconnected",
+                    "ViewVirtualAmiibos": "View virtual amiibos",
+                    "ViewFavorites": "View favorites",
+                    "SelectedArea": "Selected area",
+                    "NoVirtualAmiiboAreas": "This virtual amiibo has no areas.",
+                    "EnableRandomUuid": "Enable random UUID",
+                    "DisableRandomUuid": "Disable random UUID",
+                    "RandomUuid": "Random UUID"
+                }
+            )";
+            std::string lanPath = std::string("sdmc:/switch/.overlays/lang/") + APPTITLE + "/";
+            fsdevMountSdmc();
+            tsl::hlp::doWithSmSession([&lanPath, &jsonStr]{
+                tsl::tr::InitTrans(lanPath, jsonStr);
+            });
+            fsdevUnmountDevice("sdmc");
+
+            g_InitializationOk = emu::IsAvailable() && R_SUCCEEDED(emu::Initialize()) && R_SUCCEEDED(pmdmntInitialize()) && R_SUCCEEDED(nsInitialize());
             if(g_InitializationOk) {
                 g_Version = emu::GetVersion();
                 // TODO: distinguish between different possible issues?

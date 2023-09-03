@@ -41,7 +41,6 @@ class AmiiboAPI {
             try {
                 val raw_json = Utils.netDownloadString(Url);
                 val json_data = JSONObject(raw_json);
-
                 try {
                     val json_data_w = FileWriter(local_api_json_path);
                     json_data_w.write(json_data.toString(4));
@@ -49,13 +48,12 @@ class AmiiboAPI {
                     json_data_w.close();
                 }
                 catch(ex: Exception) {
-                    System.out.println("Exception saving AmiiboAPI as local JSON: " + ex.toString());
+                    System.out.println("保存Amiibo API为本地JSON文件异常：" + ex.toString());
                 }
-
                 return parseApiJson(json_data);
             }
             catch(ex: Exception) {
-                System.out.println("Exception reading AmiiboAPI: " + ex.toString());
+                System.out.println("读取Amiibo API异常：" + ex.toString());
 
                 try {
                     // Try loading local saved API
@@ -65,7 +63,7 @@ class AmiiboAPI {
                     return parseApiJson(json_data);
                 }
                 catch(ex: Exception) {
-                    System.out.println("Exception reading local API JSON: " + ex.toString());
+                    System.out.println("读取本地API JSON文件异常：" + ex.toString());
                     return null;
                 }
             }

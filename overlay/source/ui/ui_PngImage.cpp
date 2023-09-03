@@ -1,7 +1,8 @@
 #include <ui/ui_PngImage.hpp>
-#include <tr/tr_Translation.hpp>
 #include <ui/ui_TeslaExtras.hpp>
 #include <ui/upng.h>
+
+using namespace tsl;
 
 namespace ui {
 

@@ -18,57 +18,57 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-      <Label fx:id="StatusLabel" layoutX="14.0" layoutY="572.0" text="Label" />
+      <Label fx:id="StatusLabel" layoutX="14.0" layoutY="572.0" text="标签" />
             <TabPane prefHeight="570.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="General">
+                <Tab text="常规">
                   <content>
                     <AnchorPane prefHeight="600.0" prefWidth="800.0">
                <children>
-                              <TitledPane animated="false" layoutX="14.0" layoutY="14.0" prefHeight="224.0" prefWidth="772.0" text="View/edit existing virtual amiibo">
+                              <TitledPane animated="false" layoutX="14.0" layoutY="14.0" prefHeight="224.0" prefWidth="772.0" text="查看/编辑现有的虚拟Amiibo">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="354.0" prefWidth="708.0">
                                        <children>
-                                          <Button fx:id="AmiiboOpenButton" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="347.0" text="Open" />
-                                          <TextField fx:id="OpenedAmiiboNameText" disable="true" layoutX="15.0" layoutY="63.0" prefHeight="27.0" prefWidth="224.0" promptText="Virtual amiibo name" />
-                                          <CheckBox fx:id="OpenedAmiiboUseRandomUuidCheck" disable="true" layoutX="15.0" layoutY="106.0" mnemonicParsing="false" text="Enable UUID randomization" />
+                                          <Button fx:id="AmiiboOpenButton" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="347.0" text="打开" />
+                                          <TextField fx:id="OpenedAmiiboNameText" disable="true" layoutX="15.0" layoutY="63.0" prefHeight="27.0" prefWidth="224.0" promptText="虚拟Amiibo名称" />
+                                          <CheckBox fx:id="OpenedAmiiboUseRandomUuidCheck" disable="true" layoutX="15.0" layoutY="106.0" mnemonicParsing="false" text="启用UUID随机化" />
                                           <ListView fx:id="OpenedAmiiboAreaList" disable="true" layoutX="259.0" layoutY="87.0" prefHeight="98.0" prefWidth="501.0" />
-                                          <Button fx:id="AmiiboSaveButton" layoutX="372.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="386.0" text="Save" />
-                                          <Label layoutX="259.0" layoutY="63.0" text="Amiibo application areas" />
+                                          <Button fx:id="AmiiboSaveButton" layoutX="372.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="386.0" text="保存" />
+                                          <Label layoutX="259.0" layoutY="63.0" text="Amiibo应用区域" />
                                        </children>
                                     </AnchorPane>
                                 </content>
                               </TitledPane>
-                              <TitledPane animated="false" layoutX="14.0" layoutY="249.0" prefHeight="280.0" prefWidth="772.0" text="About">
+                              <TitledPane animated="false" layoutX="14.0" layoutY="249.0" prefHeight="280.0" prefWidth="772.0" text="杂项">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="80.0" prefWidth="677.0">
                                        <children>
-                                          <Button fx:id="AboutButton" layoutX="13.0" layoutY="215.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="743.0" text="About emuiibo and emuiigen" />
+                                          <Button fx:id="AboutButton" layoutX="13.0" layoutY="215.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="743.0" text="关于emuiibo和emuiigen" />
                                           <TabPane prefHeight="205.0" prefWidth="771.0" tabClosingPolicy="UNAVAILABLE">
                                             <tabs>
-                                              <Tab text="Miis">
+                                              <Tab text="Mii">
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <Label layoutX="14.0" layoutY="16.0" text="Each (virtual) amiibo has a mii associated with it, like with normal amiibos.&#10;&#10;emuiigen can't generate a random mii here, but for virtual amiibos&#10;which lack a mii (those generated here) emuiibo will automatically generate&#10;a random mii for them on boot.&#10;&#10;emuiibo also exports mii files (charinfo bins) for console miis, so that those can&#10;be copied inside an amiibo to use that mii with them." />
+                                                            <Label layoutX="14.0" layoutY="16.0" text="每个（虚拟）Amiibo都有一个与之相关的Mii，就像普通的Amiibo一样。&#10;&#10;emuiigen无法在这里生成随机Mii。&#10;但对于缺少Mii的虚拟Amiibo（此处生成的那些），emuiibo将在启动时自动为它们生成随机Mii。&#10;&#10;emuiibo还为控制台Mii导出MII文件（角色二进制信息），以便可以在Amiibo中复制这些文件以使用该Mii。" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
                                               </Tab>
-                                              <Tab text="Random UUID">
+                                              <Tab text="随机UUID">
                                                 <content>
                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <Label layoutX="14.0" layoutY="33.0" text="A virtual amiibo is generated along with a unique, random UUID, which will be used by emuiibo by default.&#10;&#10;If UUID randomization is enabled in a virtual amiibo, emuiibo will ignore this UUID and use random ones.&#10;This feature can be used to bypass certain game checks that limit amiibos to one reward per day.&#10;&#10;Note that you can disable this anytime by editing the virtual amiibo, here or in the emuiibo overlay." />
+                                                            <Label layoutX="14.0" layoutY="33.0" text="虚拟Amiibo与一个唯一的随机UUID一起生成，默认情况下将由emuiibo使用。&#10;&#10;如果在虚拟Amiibo中启用了UUID随机化，emuiibo将忽略此UUID并使用随机的UUID。&#10;此功能可用于绕过某些游戏检查，这些检查将Amiibo限制为每天使用一次。&#10;&#10;请注意，您可以随时在这里或在emuiibo叠加层中，通过编辑虚拟Amiibo来禁用此功能。" />
                                                          </children>
                                                       </AnchorPane>
                                                 </content>
                                               </Tab>
-                                                <Tab text="Application areas">
+                                              <Tab text="应用区域">
                                                   <content>
                                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                          <children>
-                                                            <Label layoutX="14.0" layoutY="42.0" text="An application area is per-game amiibo savedata. Real amiibos only can save data from one game,&#10;while emuiibo's virtual amiibos do not have this restriction.&#10;&#10;If you open an amiibo on the menu above, you will be able to check all the areas the amiibo has, along&#10;with their corresponding game's application ID." />
+                                                            <Label layoutX="14.0" layoutY="42.0" text="应用程序区域是每个游戏的Amiibo存档。真实的Amiibo只能保存单个游戏的数据，&#10;而emuiibo的虚拟Amiibo则没有这个限制。&#10;&#10;如果您在上面的菜单中打开Amiibo，您将能检查Amiibo拥有的所有区域，&#10;以及相应游戏的应用程序ID。" />
                                                          </children>
                                                       </AnchorPane>
                                                   </content>
@@ -83,44 +83,44 @@
             </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Generation">
+                <Tab text="生成">
                   <content>
                     <AnchorPane prefHeight="600.0" prefWidth="800.0">
                      <children>
-                              <TitledPane animated="false" layoutX="14.0" layoutY="14.0" prefHeight="514.0" prefWidth="383.0" text="Choose an amiibo">
+                              <TitledPane animated="false" layoutX="14.0" layoutY="14.0" prefHeight="514.0" prefWidth="383.0" text="选择Amiibo">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="543.0" prefWidth="376.0">
                                        <children>
-                                    <ComboBox fx:id="GenerateOneAmiiboSeriesBox" layoutX="15.0" layoutY="14.0" prefHeight="28.0" prefWidth="355.0" />
-                                    <ComboBox fx:id="AmiiboBox" layoutX="26.0" layoutY="54.0" prefHeight="30.0" prefWidth="325.0" />
-                                    <ImageView fx:id="AmiiboImage" fitHeight="376.0" fitWidth="310.0" layoutX="34.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ComboBox fx:id="GenerateOneAmiiboSeriesBox" layoutX="15.0" layoutY="14.0" prefHeight="28.0" prefWidth="355.0" />
+                                          <ComboBox fx:id="AmiiboBox" layoutX="26.0" layoutY="54.0" prefHeight="30.0" prefWidth="325.0" />
+                                          <ImageView fx:id="AmiiboImage" fitHeight="376.0" fitWidth="310.0" layoutX="34.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
                                 </content>
                               </TitledPane>
-                              <TitledPane animated="false" layoutX="409.0" layoutY="14.0" prefHeight="240.0" prefWidth="382.0" text="Customize it">
+                              <TitledPane animated="false" layoutX="409.0" layoutY="14.0" prefHeight="240.0" prefWidth="382.0" text="自定义">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="386.0">
                                        <children>
-                                    <TextField fx:id="AmiiboNameText" layoutX="15.0" layoutY="14.0" prefHeight="28.0" prefWidth="346.0" promptText="Virtual amiibo name" />
-                                    <TextField fx:id="AmiiboDirectoryText" layoutX="15.0" layoutY="54.0" prefHeight="28.0" prefWidth="346.0" promptText="Directory name" />
-                                    <CheckBox fx:id="NameAsDirectoryNameCheck" layoutX="18.0" layoutY="87.0" mnemonicParsing="false" selected="true" text="Use name as directory name" />
-                                    <CheckBox fx:id="GenerateOneUseRandomUuidCheck" layoutX="18.0" layoutY="133.0" mnemonicParsing="false" text="Enable UUID randomization" />
-                                    <CheckBox fx:id="GenerateOneImageSaveCheck" layoutX="18.0" layoutY="179.0" mnemonicParsing="false" text="Save image" />
+                                          <TextField fx:id="AmiiboNameText" layoutX="15.0" layoutY="14.0" prefHeight="28.0" prefWidth="346.0" promptText="虚拟Amiibo名称" />
+                                          <TextField fx:id="AmiiboDirectoryText" layoutX="15.0" layoutY="54.0" prefHeight="28.0" prefWidth="346.0" promptText="目录名称" />
+                                          <CheckBox fx:id="NameAsDirectoryNameCheck" layoutX="18.0" layoutY="87.0" mnemonicParsing="false" selected="true" text="使用名称作为目录名称" />
+                                          <CheckBox fx:id="GenerateOneUseRandomUuidCheck" layoutX="18.0" layoutY="133.0" mnemonicParsing="false" text="启用UUID随机化" />
+                                          <CheckBox fx:id="GenerateOneImageSaveCheck" layoutX="18.0" layoutY="179.0" mnemonicParsing="false" text="保存图像" />
                                        </children>
                                     </AnchorPane>
                                 </content>
                               </TitledPane>
-                              <TitledPane animated="false" layoutX="409.0" layoutY="267.0" prefHeight="168.0" prefWidth="385.0" text="Generate it">
+                              <TitledPane animated="false" layoutX="409.0" layoutY="267.0" prefHeight="168.0" prefWidth="385.0" text="生成">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                    <Button fx:id="GenerateOneButton" layoutX="14.0" layoutY="95.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="353.0" text="Generate virtual amiibo" />
-                                          <CheckBox fx:id="GenerateOneFtpCheck" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" text="Save to FTP" />
+                                          <Button fx:id="GenerateOneButton" layoutX="14.0" layoutY="95.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="353.0" text="生成虚拟Amiibo" />
+                                          <CheckBox fx:id="GenerateOneFtpCheck" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" text="保存到FTP" />
                                           <Label layoutX="14.0" layoutY="56.0" text="ftp://" />
-                                          <TextField fx:id="GenerateOneFtpAddress" layoutX="47.0" layoutY="52.0" promptText="Address" />
+                                          <TextField fx:id="GenerateOneFtpAddress" layoutX="47.0" layoutY="52.0" promptText="地址" />
                                           <Label layoutX="210.0" layoutY="56.0" text=":" />
-                                          <TextField fx:id="GenerateOneFtpPort" layoutX="215.0" layoutY="51.0" prefHeight="28.0" prefWidth="80.0" promptText="Port" />
+                                          <TextField fx:id="GenerateOneFtpPort" layoutX="215.0" layoutY="51.0" prefHeight="28.0" prefWidth="80.0" promptText="端口" />
                                        </children>
                                     </AnchorPane>
                                 </content>
@@ -129,40 +129,40 @@
                   </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab text="Batch generation">
+                  <Tab text="批量生成">
                      <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TitledPane animated="false" layoutX="14.0" layoutY="14.0" prefHeight="255.0" prefWidth="365.0" text="Generate all">
+                              <TitledPane animated="false" layoutX="14.0" layoutY="14.0" prefHeight="255.0" prefWidth="365.0" text="全部生成">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="91.0" prefWidth="770.0">
                                        <children>
-                                          <Button fx:id="GenerateAllButton" layoutX="12.0" layoutY="179.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="333.0" text="Generate virtual amiibos" />
-                                          <CheckBox fx:id="GenerateAllUseRandomUuidCheck" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" text="Enable UUID randomization" />
-                                          <CheckBox fx:id="GenerateAllImageSaveCheck" layoutX="13.0" layoutY="52.0" mnemonicParsing="false" text="Save images" />
+                                          <Button fx:id="GenerateAllButton" layoutX="12.0" layoutY="179.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="333.0" text="生成虚拟Amiibo" />
+                                          <CheckBox fx:id="GenerateAllUseRandomUuidCheck" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" text="启用UUID随机化" />
+                                          <CheckBox fx:id="GenerateAllImageSaveCheck" layoutX="13.0" layoutY="52.0" mnemonicParsing="false" text="保存图像" />
                                           <Label layoutX="209.0" layoutY="141.0" text=":" />
-                                          <TextField fx:id="GenerateAllFtpPort" layoutX="214.0" layoutY="136.0" prefHeight="27.0" prefWidth="80.0" promptText="Port" />
-                                          <TextField fx:id="GenerateAllFtpAddress" layoutX="47.0" layoutY="136.0" prefHeight="27.0" prefWidth="160.0" promptText="Address" />
+                                          <TextField fx:id="GenerateAllFtpPort" layoutX="214.0" layoutY="136.0" prefHeight="27.0" prefWidth="80.0" promptText="端口" />
+                                          <TextField fx:id="GenerateAllFtpAddress" layoutX="47.0" layoutY="136.0" prefHeight="27.0" prefWidth="160.0" promptText="地址" />
                                           <Label layoutX="14.0" layoutY="141.0" text="ftp://" />
-                                          <CheckBox fx:id="GenerateAllFtpCheck" layoutX="13.0" layoutY="114.0" mnemonicParsing="false" text="Save to FTP" />
+                                          <CheckBox fx:id="GenerateAllFtpCheck" layoutX="13.0" layoutY="114.0" mnemonicParsing="false" text="保存到FTP" />
                                           <Separator layoutX="14.0" layoutY="93.0" prefHeight="0.0" prefWidth="330.0" />
                                        </children>
                                     </AnchorPane>
                                 </content>
                               </TitledPane>
-                              <TitledPane animated="false" layoutX="387.0" layoutY="14.0" prefHeight="310.0" prefWidth="404.0" text="Generate by series">
+                              <TitledPane animated="false" layoutX="387.0" layoutY="14.0" prefHeight="310.0" prefWidth="404.0" text="按系列生成">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="284.0" prefWidth="402.0">
                                        <children>
                                           <ComboBox fx:id="GenerateSeriesAmiiboSeriesBox" layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="369.0" />
-                                          <Button fx:id="GenerateSeriesButton" layoutX="13.0" layoutY="234.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="368.0" text="Generate virtual amiibos" />
-                                          <CheckBox fx:id="GenerateSeriesUseRandomUuidCheck" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" text="Enable UUID randomization" />
-                                          <CheckBox fx:id="GenerateSeriesImageSaveCheck" layoutX="14.0" layoutY="107.0" mnemonicParsing="false" text="Save images" />
-                                          <CheckBox fx:id="GenerateSeriesFtpCheck" layoutX="14.0" layoutY="169.0" mnemonicParsing="false" text="Save to FTP" />
+                                          <Button fx:id="GenerateSeriesButton" layoutX="13.0" layoutY="234.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="368.0" text="生成虚拟Amiibo" />
+                                          <CheckBox fx:id="GenerateSeriesUseRandomUuidCheck" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" text="启用UUID随机化" />
+                                          <CheckBox fx:id="GenerateSeriesImageSaveCheck" layoutX="14.0" layoutY="107.0" mnemonicParsing="false" text="保存图像" />
+                                          <CheckBox fx:id="GenerateSeriesFtpCheck" layoutX="14.0" layoutY="169.0" mnemonicParsing="false" text="保存到FTP" />
                                           <Label layoutX="14.0" layoutY="197.0" text="ftp://" />
-                                          <TextField fx:id="GenerateSeriesFtpAddress" layoutX="47.0" layoutY="192.0" prefHeight="27.0" prefWidth="161.0" promptText="Address" />
+                                          <TextField fx:id="GenerateSeriesFtpAddress" layoutX="47.0" layoutY="192.0" prefHeight="27.0" prefWidth="161.0" promptText="地址" />
                                           <Label layoutX="211.0" layoutY="196.0" text=":" />
-                                          <TextField fx:id="GenerateSeriesFtpPort" layoutX="216.0" layoutY="192.0" prefHeight="27.0" prefWidth="80.0" promptText="Port" />
+                                          <TextField fx:id="GenerateSeriesFtpPort" layoutX="216.0" layoutY="192.0" prefHeight="27.0" prefWidth="80.0" promptText="端口" />
                                           <Separator layoutX="12.0" layoutY="147.0" prefHeight="3.0" prefWidth="371.0" />
                                        </children>
                                     </AnchorPane>

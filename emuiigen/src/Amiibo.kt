@@ -84,7 +84,7 @@ data class Amiibo(var first_write_date: AmiiboDate, var id: AmiiboId, var last_w
                 return Pair(status, amiibo);
             }
             catch(ex: Exception) {
-                System.out.println("Exception loading amiibo JSON: " + ex.toString());
+                System.out.println("加载Amiibo JSON异常：" + ex.toString());
                 return Pair(AmiiboStatus.of(AmiiboStatusKind.JsonNotFound), null);
             }
         }
@@ -135,7 +135,7 @@ data class Amiibo(var first_write_date: AmiiboDate, var id: AmiiboId, var last_w
             json_w.close();
         }
         catch(ex: Exception) {
-            System.out.println("Exception saving amiibo: " + ex.toString());
+            System.out.println("保存Amiibo异常：" + ex.toString());
             return false;
         }
         

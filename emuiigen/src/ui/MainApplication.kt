@@ -24,7 +24,7 @@ class MainApplication : Application() {
 
     companion object {
 
-        val Description = "emuiibo's virtual amiibo PC utility";
+        val Description = "emuiibo的虚拟Amiibo PC应用程序";
         lateinit var Version: String;
 
         lateinit var HostServices: HostServices;
